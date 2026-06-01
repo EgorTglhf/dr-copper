@@ -228,3 +228,18 @@ def plot_pc_scores(
 
     fig.subplots_adjust(hspace=0.12)
     save(fig, save_path)
+
+
+def plot_forecasts(train, test, forecast: list[float], title, grid_flg=True):
+    plt.figure(figsize=(12, 6))
+    plt.plot(train.index, train, label="Train", color=COPPER_PALETTE["copper"])
+    plt.plot(test.index, test, label="Test", color=COPPER_PALETTE["accent"])
+    plt.plot(test.index, forecast, label="Forecast")
+
+    plt.title(title)
+    plt.xlabel("Copper Price")
+    plt.ylabel("Date")
+    plt.grid(grid_flg)
+    plt.legend()
+
+    plt.show()
