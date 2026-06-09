@@ -10,6 +10,7 @@ from dr_copper.arima_baseline import (
 )
 from dr_copper.data_loader import fetch_raw
 from dr_copper.features_builder import fetch_features
+from dr_copper.garch_model import get_acf, get_pacf, plot_garch, walk_forward_garch
 from dr_copper.pca import fit_pca
 from dr_copper.regimes import (
     fit_regimes,
@@ -44,4 +45,8 @@ __all__ = [
     "acf",
     "pacf",
     "residuals_diagnostic",
+    "get_acf",
+    "get_pacf",
+    "walk_forward_garch",
+    "plot_garch",
 ]
