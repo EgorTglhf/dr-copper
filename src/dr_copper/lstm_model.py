@@ -191,3 +191,21 @@ def lstm_test_score(data: LSTMTrainerData, fit_model: CopperLSTM):
 
     print(f"Accuracy score: {float(accuracy_score(actual_signs, pred_signs)):.2%}")
     print(f"ROC AUC score: {float(roc_auc_score(actual_signs, test_preds)):.2%}")
+
+
+def lstm_signal(
+    X: np.ndarray,
+    dt_index: pd.DatetimeIndex,
+    fit_model: CopperLSTM,
+    threshold: float = 0.5,
+):
+    fit_model.eval()
+    with torch.no_grad():
+        test_proba = fit_model(torch.tensor(X, device=DEVICE)).cpu().numpy()
+
+    # convert probabilities to directional signal: 1 (long) or -1 (short)
+    signal = pd.Series(
+        np.where(test_proba >= 0.5, 1, -1), index=dt_index, name="signal"
+    )
+
+    return signal

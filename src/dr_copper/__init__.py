@@ -17,6 +17,7 @@ from dr_copper.lstm_model import (
     LSTMConfig,
     LSTMTrainerData,
     build_sequences,
+    lstm_signal,
     lstm_test_score,
 )
 from dr_copper.pca import fit_pca, transform_pca
@@ -76,4 +77,5 @@ __all__ = [
     "XGBConfig",
     "XGBTrainerData",
     "xgb_test_score",
+    "lstm_signal",
 ]
