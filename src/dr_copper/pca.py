@@ -60,3 +60,19 @@ def fit_pca(
     evr = pca.explained_variance_ratio_
 
     return pipe, loadings, scores, evr
+
+
+def transform_pca(features: pd.DataFrame, pipe: Pipeline):
+    X = features[PCA_FEATURE_COLS]
+
+    scores_arr = pipe.transform(X)
+
+    pc_labels = [f"PC{i + 1}" for i in range(len(scores_arr[0]))]
+
+    scores = pd.DataFrame(
+        scores_arr,
+        index=X.index,
+        columns=pc_labels,
+    )
+
+    return scores

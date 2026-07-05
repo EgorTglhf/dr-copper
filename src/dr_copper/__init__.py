@@ -11,12 +11,21 @@ from dr_copper.arima_baseline import (
 from dr_copper.data_loader import fetch_raw
 from dr_copper.features_builder import fetch_features
 from dr_copper.garch_model import get_acf, get_pacf, plot_garch, walk_forward_garch
-from dr_copper.pca import fit_pca
+from dr_copper.lstm_model import (
+    CopperLSTM,
+    CopperLSTMTrainer,
+    LSTMConfig,
+    LSTMTrainerData,
+    build_sequences,
+    lstm_test_score,
+)
+from dr_copper.pca import fit_pca, transform_pca
 from dr_copper.regimes import (
     fit_regimes,
     plot_elbow,
     plot_regime_history,
     plot_regime_scatter,
+    predict_regimes,
 )
 from dr_copper.viz import (
     plot_explained_variance,
@@ -24,6 +33,12 @@ from dr_copper.viz import (
     plot_loadings_heatmap,
     plot_pc_scores,
     save,
+)
+from dr_copper.xgb_model import (
+    CopperXGBTrainer,
+    XGBConfig,
+    XGBTrainerData,
+    xgb_test_score,
 )
 
 __all__ = [
@@ -49,4 +64,16 @@ __all__ = [
     "get_pacf",
     "walk_forward_garch",
     "plot_garch",
+    "transform_pca",
+    "predict_regimes",
+    "build_sequences",
+    "CopperLSTM",
+    "LSTMConfig",
+    "LSTMTrainerData",
+    "CopperLSTMTrainer",
+    "lstm_test_score",
+    "CopperXGBTrainer",
+    "XGBConfig",
+    "XGBTrainerData",
+    "xgb_test_score",
 ]

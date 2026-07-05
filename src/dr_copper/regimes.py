@@ -44,6 +44,21 @@ def fit_regimes(
     return labels, km, summary
 
 
+def predict_regimes(scores: pd.DataFrame, km: KMeans):
+    X = scores[DEFAULT_PCS]
+
+    raw_labels = km.predict(X)
+
+    centroid_pc1 = km.cluster_centers_[:, 0]
+    order = np.argsort(centroid_pc1)
+    remap = {orig: new for new, orig in enumerate(order)}
+    ordered_labels = np.vectorize(remap.get)(raw_labels)
+
+    labels = pd.Series(ordered_labels, index=scores.index, name="regime")
+
+    return labels
+
+
 def plot_elbow(
     scores: pd.DataFrame,
     save_path: Path,
