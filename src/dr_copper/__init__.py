@@ -8,6 +8,7 @@ from dr_copper.arima_baseline import (
     residuals_diagnostic,
     restore_prices,
 )
+from dr_copper.backtest import build_backtest_frame, run_backtest, run_backtest_opt
 from dr_copper.data_loader import fetch_raw
 from dr_copper.features_builder import fetch_features
 from dr_copper.garch_model import get_acf, get_pacf, plot_garch, walk_forward_garch
@@ -27,6 +28,17 @@ from dr_copper.regimes import (
     plot_regime_history,
     plot_regime_scatter,
     predict_regimes,
+)
+from dr_copper.strategy import (
+    SignalData,
+    SignalSMAStrategy,
+    SignalStrategy,
+    SMAStrategy,
+)
+from dr_copper.tearsheet import (
+    benchmark_returns_from_prices,
+    generate_html_tearsheet,
+    print_key_metrics,
 )
 from dr_copper.viz import (
     plot_explained_variance,
@@ -78,4 +90,14 @@ __all__ = [
     "XGBTrainerData",
     "xgb_test_score",
     "lstm_signal",
+    "build_backtest_frame",
+    "SignalData",
+    "SignalStrategy",
+    "SMAStrategy",
+    "SignalSMAStrategy",
+    "benchmark_returns_from_prices",
+    "print_key_metrics",
+    "run_backtest",
+    "generate_html_tearsheet",
+    "run_backtest_opt",
 ]
