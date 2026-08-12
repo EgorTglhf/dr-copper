@@ -243,3 +243,84 @@ def plot_forecasts(train, test, forecast: list[float], title, grid_flg=True):
     plt.legend()
 
     plt.show()
+
+
+# ==============================
+# Monte Carlo
+# ==============================
+
+
+def plot_cone(paths, S0, title, color, ax=None):
+    t = np.arange(paths.shape[1])
+    pct = {p: np.percentile(paths, p, axis=0) for p in [5, 25, 50, 75, 95]}
+    if ax is None:
+        fig, ax = plt.subplots()
+    sample_idx = np.random.choice(paths.shape[0], size=200, replace=False)
+    ax.plot(t, paths[sample_idx].T, color=color, alpha=0.15, linewidth=0.7)
+    ax.fill_between(t, pct[5], pct[95], color=color, alpha=0.3, label="5-95th pct")
+    ax.fill_between(t, pct[25], pct[75], color=color, alpha=0.50, label="25-75th pct")
+    ax.plot(t, pct[50], color=color, linewidth=2, label="median")
+    ax.axhline(S0, color="black", linestyle="--", linewidth=1, label="S0")
+    ax.set_xlabel("Trading days ahead")
+    ax.set_ylabel("Copper price (HG=F)")
+    ax.set_title(title)
+    ax.legend(loc="upper left", fontsize=8)
+    return ax
+
+
+def plot_distrib(terminal, label, S0, title, terminal2=None, label2=None):
+    fig, ax = plt.subplots()
+
+    if terminal2 is not None:
+        bins = np.linspace(
+            min(terminal.min(), terminal2.min()),
+            max(terminal.max(), terminal2.max()),
+            90,
+        )
+        ax.hist(
+            terminal2,
+            bins=bins,
+            color="tab:red",
+            alpha=0.5,
+            label=label2,
+            edgecolor="white",
+            linewidth=0.2,
+        )
+    else:
+        bins = 90
+
+    ax.hist(
+        terminal,
+        bins=bins,
+        color="tab:blue",
+        alpha=0.5,
+        label=label,
+        edgecolor="white",
+        linewidth=0.2,
+    )
+    ax.axvline(S0, color="black", linestyle="--", label="S0")
+    ax.set_xlabel("Terminal price (day 63)")
+    ax.set_ylabel("Frequency")
+    ax.set_title(title)
+    ax.legend()
+    return ax
+
+
+# ==============================
+# SABR
+# ==============================
+def plot_vol_smile(strikes, synthetic_vols, dense_strikes, fitted_vols, S0):
+    fig, ax = plt.subplots()
+    ax.scatter(
+        strikes, synthetic_vols, color="black", zorder=5, label="Synthetic market smile"
+    )
+    ax.plot(
+        dense_strikes, fitted_vols, color="tab:green", linewidth=2, label="SABR fit"
+    )
+    ax.axvline(S0, color="gray", linestyle="--", linewidth=1, label="Spot (ATM)")
+    ax.set_xlabel("Strike")
+    ax.set_ylabel("Implied vol")
+    ax.set_title("SABR calibration to synthetic copper vol smile")
+    ax.legend()
+
+    return ax

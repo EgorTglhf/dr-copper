@@ -21,6 +21,7 @@ from dr_copper.lstm_model import (
     lstm_signal,
     lstm_test_score,
 )
+from dr_copper.monte_carlo import gbm, heston
 from dr_copper.pca import fit_pca, transform_pca
 from dr_copper.regimes import (
     fit_regimes,
@@ -41,10 +42,13 @@ from dr_copper.tearsheet import (
     print_key_metrics,
 )
 from dr_copper.viz import (
+    plot_cone,
+    plot_distrib,
     plot_explained_variance,
     plot_forecasts,
     plot_loadings_heatmap,
     plot_pc_scores,
+    plot_vol_smile,
     save,
 )
 from dr_copper.xgb_model import (
@@ -100,4 +104,9 @@ __all__ = [
     "run_backtest",
     "generate_html_tearsheet",
     "run_backtest_opt",
+    "gbm",
+    "heston",
+    "plot_cone",
+    "plot_distrib",
+    "plot_vol_smile",
 ]
