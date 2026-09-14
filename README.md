@@ -111,7 +111,7 @@ The project has three goals: demonstrate a rigorous end-to-end quant pipeline, s
 
 ### Volatility modelling (Phase 3)
 
-> Persistence of `0.98` in the GARCH(1, 1) indicates long-memory volatility — typical for industrial metals and consistent with the literature.
+> Persistence of `0.98` in the GARCH(1, 1) indicates highly persistent volatility — shocks decay slowly, consistent with extended volatility clustering observed in industrial metals.
 
 ---
 
@@ -197,7 +197,7 @@ Engle's ARCH LM test indicates the presence of ARCH effects.
 The ARIMA model led to a constant log return, which is close to the historical mean return. So the GARCH model uses a constant mean.
 The GARCH conditional volatility series σ̂_t is saved to `data/processed/features_with_vol.parquet` joined to other features and separately to `data/processed/garch_wf.parquet` and consumed by two downstream phases: as a feature in the Phase 4 ML models, and as the diffusion parameter σ in the Phase 6 GBM simulation.
 
-**Key finding:** `Persistence of 0.98 in the GARCH(1, 1) indicates long-memory volatility — typical for industrial metals and consistent with the literature.`
+**Key finding:** `GARCH(1,1) persistence α+β=0.98 indicates highly persistent volatility — shocks decay slowly, consistent with extended volatility clustering observed in industrial metals.`
 
 ---
 
